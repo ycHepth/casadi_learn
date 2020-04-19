@@ -25,7 +25,6 @@ extern "C" {
 
 /* Add prefix to internal symbols */
 #define casadi_f0 CASADI_PREFIX(f0)
-#define casadi_f1 CASADI_PREFIX(f1)
 #define casadi_s0 CASADI_PREFIX(s0)
 
 /* Symbol visibility in DLLs */
@@ -124,92 +123,6 @@ CASADI_SYMBOL_EXPORT const casadi_int* f_sparsity_out(casadi_int i) {
 }
 
 CASADI_SYMBOL_EXPORT int f_work(casadi_int *sz_arg, casadi_int* sz_res, casadi_int *sz_iw, casadi_int *sz_w) {
-  if (sz_arg) *sz_arg = 2;
-  if (sz_res) *sz_res = 2;
-  if (sz_iw) *sz_iw = 0;
-  if (sz_w) *sz_w = 1;
-  return 0;
-}
-
-/* g:(i0)->(o0) */
-static int casadi_f1(const casadi_real** arg, casadi_real** res, casadi_int* iw, casadi_real* w, int mem) {
-  casadi_real w0;
-  /* #0: @0 = input[0][0] */
-  w0 = arg[0] ? arg[0][0] : 0;
-  /* #1: @0 = cos(@0) */
-  w0 = cos( w0 );
-  /* #2: output[0][0] = @0 */
-  if (res[0]) res[0][0] = w0;
-  return 0;
-}
-
-CASADI_SYMBOL_EXPORT int g(const casadi_real** arg, casadi_real** res, casadi_int* iw, casadi_real* w, int mem){
-  return casadi_f1(arg, res, iw, w, mem);
-}
-
-CASADI_SYMBOL_EXPORT int g_alloc_mem(void) {
-  return 0;
-}
-
-CASADI_SYMBOL_EXPORT int g_init_mem(int mem) {
-  return 0;
-}
-
-CASADI_SYMBOL_EXPORT void g_free_mem(int mem) {
-}
-
-CASADI_SYMBOL_EXPORT int g_checkout(void) {
-  return 0;
-}
-
-CASADI_SYMBOL_EXPORT void g_release(int mem) {
-}
-
-CASADI_SYMBOL_EXPORT void g_incref(void) {
-}
-
-CASADI_SYMBOL_EXPORT void g_decref(void) {
-}
-
-CASADI_SYMBOL_EXPORT casadi_int g_n_in(void) { return 1;}
-
-CASADI_SYMBOL_EXPORT casadi_int g_n_out(void) { return 1;}
-
-CASADI_SYMBOL_EXPORT casadi_real g_default_in(casadi_int i){
-  switch (i) {
-    default: return 0;
-  }
-}
-
-CASADI_SYMBOL_EXPORT const char* g_name_in(casadi_int i){
-  switch (i) {
-    case 0: return "i0";
-    default: return 0;
-  }
-}
-
-CASADI_SYMBOL_EXPORT const char* g_name_out(casadi_int i){
-  switch (i) {
-    case 0: return "o0";
-    default: return 0;
-  }
-}
-
-CASADI_SYMBOL_EXPORT const casadi_int* g_sparsity_in(casadi_int i) {
-  switch (i) {
-    case 0: return casadi_s0;
-    default: return 0;
-  }
-}
-
-CASADI_SYMBOL_EXPORT const casadi_int* g_sparsity_out(casadi_int i) {
-  switch (i) {
-    case 0: return casadi_s0;
-    default: return 0;
-  }
-}
-
-CASADI_SYMBOL_EXPORT int g_work(casadi_int *sz_arg, casadi_int* sz_res, casadi_int *sz_iw, casadi_int *sz_w) {
   if (sz_arg) *sz_arg = 2;
   if (sz_res) *sz_res = 2;
   if (sz_iw) *sz_iw = 0;
